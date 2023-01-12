@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_testapp/page/hitung_bunga_6bulan.dart';
 import 'package:flutter_testapp/page/hitung_sewa_kost.dart';
 
 void main() {
@@ -31,22 +32,33 @@ class MyPage extends StatelessWidget {
       ),
       body: Padding(
         padding: const EdgeInsets.all(8.0),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          // crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            ElevatedButton(
+        child: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            // crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              ElevatedButton(
+                  onPressed: () {
+                    Navigator.of(context).push(
+                      MaterialPageRoute(builder: (context) => const HitungSewaKost()),
+                    );
+                  },
+                  child: const Text('Go to Soal 1')),
+              const SizedBox(height: 10),
+              ElevatedButton(
                 onPressed: () {
                   Navigator.of(context).push(
-                    MaterialPageRoute(builder: (context) => const HitungSewaKost()),
+                    MaterialPageRoute(builder: (context) => const HitungBunga6Bulan()),
                   );
                 },
-                child: const Text('Go to Soal 1')),
-            const SizedBox(height: 10),
-            ElevatedButton(onPressed: () {}, child: const Text('Go to Soal ')),
-            const SizedBox(height: 10),
-            ElevatedButton(onPressed: () {}, child: const Text('Go to Soal ')),
-          ],
+                child: const Text('Go to Soal 2A'),
+              ),
+              const SizedBox(height: 10),
+              ElevatedButton(onPressed: () {}, child: const Text('Go to Soal 2B')),
+              const SizedBox(height: 10),
+              ElevatedButton(onPressed: () {}, child: const Text('Go to Soal ')),
+            ],
+          ),
         ),
       ),
     );
