@@ -1,41 +1,40 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_testapp/bloc/bloc_3a/bloc_hitung_calculator.dart';
-import 'package:flutter_testapp/bloc/bloc_3a/hitung_calculator_event.dart';
-import 'package:flutter_testapp/bloc/bloc_3a/hitung_calculator_state.dart';
+import 'package:flutter_testapp/bloc/bloc_3b/bloc_hitung_calculator_dinamis.dart';
+import 'package:flutter_testapp/bloc/bloc_3b/hitung_calculator_dinamis_event.dart';
+import 'package:flutter_testapp/bloc/bloc_3b/hitung_calculator_dinamis_state.dart';
 import 'package:flutter_testapp/models/calculator_model.dart';
 
-class HitungCalculator extends StatefulWidget {
-  const HitungCalculator({super.key});
+class HitungCalculatorBebas extends StatefulWidget {
+  const HitungCalculatorBebas({super.key});
 
   @override
-  State<HitungCalculator> createState() => _HitungCalculatorState();
+  State<HitungCalculatorBebas> createState() => _HitungCalculatorBebas();
 }
 
-class _HitungCalculatorState extends State<HitungCalculator> {
+class _HitungCalculatorBebas extends State<HitungCalculatorBebas> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Hitung Calculator'),
+        title: const Text('Hitung Calculator Dinamis'),
       ),
       body: BlocProvider(
-        create: (_) => BlocHitungCalculator()
-          ..add(OnCalculatorInitial(CalculatorModel(null, false)))
-          ..add(OnCalculatorInitial(CalculatorModel(null, false)))
-          ..add(OnCalculatorInitial(CalculatorModel(null, false))),
+        create: (_) => BlocHitungCalculatorBebas()
+          ..add(OnCalculatorBebasInitial(CalculatorModel(null, false)))
+          ..add(OnCalculatorBebasInitial(CalculatorModel(null, false))),
         child: SingleChildScrollView(
           physics: const ScrollPhysics(),
           padding: const EdgeInsets.all(10),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              BlocConsumer<BlocHitungCalculator, HitungCalculatorState>(
+              BlocConsumer<BlocHitungCalculatorBebas, HitungCalculatorBebasState>(
                 buildWhen: (previous, current) {
-                  return current is OnInitialHitungCalculator;
+                  return current is OnInitialHitungCalculatorBebas;
                 },
                 builder: (context, state) {
-                  if (state is OnInitialHitungCalculator) {
+                  if (state is OnInitialHitungCalculatorBebas) {
                     return ListView.builder(
                       shrinkWrap: true,
                       itemCount: state.calculatorModel.length,
@@ -52,22 +51,32 @@ class _HitungCalculatorState extends State<HitungCalculator> {
                                 onChanged: (val) {
                                   if (val != '') {
                                     int valueParsed = int.parse(val);
-                                    context.read<BlocHitungCalculator>().add(OnChangeTextField(index, valueParsed));
+                                    context.read<BlocHitungCalculatorBebas>().add(OnChangeTextFieldBebas(index, valueParsed));
                                   } else {
-                                    context.read<BlocHitungCalculator>().add(OnChangeTextField(index, null));
+                                    context.read<BlocHitungCalculatorBebas>().add(OnChangeTextFieldBebas(index, null));
                                   }
                                 },
                               ),
                             ),
                             Expanded(
-                              flex: 4,
+                              flex: 3,
                               child: Checkbox(
                                 value: rowData.checked,
                                 onChanged: (val) {
                                   // debugPrint(val.toString());
                                   bool valueParsed = val!;
-                                  context.read<BlocHitungCalculator>().add(OnChangeCheckbox(index, valueParsed));
+                                  context.read<BlocHitungCalculatorBebas>().add(OnChangeCheckboxBebas(index, valueParsed));
                                 },
+                              ),
+                            ),
+                            Expanded(
+                              flex: 3,
+                              child: ElevatedButton(
+                                style: ButtonStyle(backgroundColor: MaterialStateProperty.all(Colors.red)),
+                                onPressed: () {
+                                  context.read<BlocHitungCalculatorBebas>().add(OnDeleteRowBebas(index));
+                                },
+                                child: const Text('Hapus'),
                               ),
                             )
                           ],
@@ -78,7 +87,7 @@ class _HitungCalculatorState extends State<HitungCalculator> {
                   return Container();
                 },
                 listener: (context, state) {
-                  if (state is OnErrorHitungCalculator) {
+                  if (state is OnErrorHitungCalculatorBebas) {
                     ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                       backgroundColor: Colors.red,
                       content: Text(state.pesan),
@@ -88,33 +97,44 @@ class _HitungCalculatorState extends State<HitungCalculator> {
               ),
               const SizedBox(height: 20),
               Builder(
+                builder: ((context) {
+                  return ElevatedButton(
+                    onPressed: () {
+                      context.read<BlocHitungCalculatorBebas>().add(OnCalculatorBebasInitial(CalculatorModel(null, false)));
+                    },
+                    child: const Text('Tambah Field'),
+                  );
+                }),
+              ),
+              const SizedBox(height: 20),
+              Builder(
                 builder: (context) {
                   return Row(
                     children: [
                       ElevatedButton(
                         onPressed: () {
-                          context.read<BlocHitungCalculator>().add(OnPlusPressed());
+                          context.read<BlocHitungCalculatorBebas>().add(OnPlusBebasPressed());
                         },
                         child: const Text('+'),
                       ),
                       const SizedBox(width: 10),
                       ElevatedButton(
                         onPressed: () {
-                          context.read<BlocHitungCalculator>().add(OnMinusPressed());
+                          context.read<BlocHitungCalculatorBebas>().add(OnMinusBebasPressed());
                         },
                         child: const Text('-'),
                       ),
                       const SizedBox(width: 10),
                       ElevatedButton(
                         onPressed: () {
-                          context.read<BlocHitungCalculator>().add(OnMultiplyPressed());
+                          context.read<BlocHitungCalculatorBebas>().add(OnMultiplyBebasPressed());
                         },
                         child: const Text('x'),
                       ),
                       const SizedBox(width: 10),
                       ElevatedButton(
                         onPressed: () {
-                          context.read<BlocHitungCalculator>().add(OnDevidePressed());
+                          context.read<BlocHitungCalculatorBebas>().add(OnDevideBebasPressed());
                         },
                         child: const Text('/'),
                       ),
@@ -123,12 +143,12 @@ class _HitungCalculatorState extends State<HitungCalculator> {
                 },
               ),
               const SizedBox(height: 30),
-              BlocBuilder<BlocHitungCalculator, HitungCalculatorState>(
+              BlocBuilder<BlocHitungCalculatorBebas, HitungCalculatorBebasState>(
                 builder: (context, state) {
-                  if (state is OnLoadingHitungCalculator) {
+                  if (state is OnLoadingHitungCalculatorBebas) {
                     return const Center(child: CircularProgressIndicator());
                   }
-                  if (state is OnSuccessHitungCalculator) {
+                  if (state is OnSuccessHitungCalculatorBebas) {
                     return Text(state.pesan);
                   }
                   return const Text('Hasil 0');
