@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_testapp/page/hitung_bunga_6bulan.dart';
 import 'package:flutter_testapp/page/hitung_bunga_bulan_bebas.dart';
+import 'package:flutter_testapp/page/hitung_calculator.dart';
 import 'package:flutter_testapp/page/hitung_sewa_kost.dart';
 
 void main() {
@@ -63,7 +64,14 @@ class MyPage extends StatelessWidget {
                   },
                   child: const Text('Go to Soal 2B')),
               const SizedBox(height: 10),
-              ElevatedButton(onPressed: () {}, child: const Text('Go to Soal ')),
+              ElevatedButton(
+                onPressed: () {
+                  Navigator.of(context).push(
+                    MaterialPageRoute(builder: (context) => const HitungCalculator()),
+                  );
+                },
+                child: const Text('Go to Soal 3A'),
+              ),
             ],
           ),
         ),
