@@ -30,7 +30,46 @@ class BlocHitungCalculator extends Bloc<HitungCalculatorEvent, HitungCalculatorS
         num result = _simpleCalculatorRepository.calculateOperation(event);
         emit(OnSuccessHitungCalculator('Hasil kalkulasi + = ${result.toString()}'));
       } on Exception catch (e) {
-        print(e.toString());
+        // print(e.toString());
+        emit(OnErrorHitungCalculator(e.toString()));
+      }
+    });
+
+    // operasi pengurangan
+    on<OnMinusPressed>((event, emit) async {
+      emit(OnLoadingHitungCalculator());
+      await Future.delayed(const Duration(milliseconds: 500));
+      try {
+        num result = _simpleCalculatorRepository.calculateOperation(event);
+        emit(OnSuccessHitungCalculator('Hasil kalkulasi - = ${result.toString()}'));
+      } on Exception catch (e) {
+        // print(e.toString());
+        emit(OnErrorHitungCalculator(e.toString()));
+      }
+    });
+
+    // operasi perkalian
+    on<OnMultiplyPressed>((event, emit) async {
+      emit(OnLoadingHitungCalculator());
+      await Future.delayed(const Duration(milliseconds: 500));
+      try {
+        num result = _simpleCalculatorRepository.calculateOperation(event);
+        emit(OnSuccessHitungCalculator('Hasil kalkulasi * = ${result.toString()}'));
+      } on Exception catch (e) {
+        // print(e.toString());
+        emit(OnErrorHitungCalculator(e.toString()));
+      }
+    });
+
+    // operasi pembagian
+    on<OnDevidePressed>((event, emit) async {
+      emit(OnLoadingHitungCalculator());
+      await Future.delayed(const Duration(milliseconds: 500));
+      try {
+        num result = _simpleCalculatorRepository.calculateOperation(event);
+        emit(OnSuccessHitungCalculator('Hasil kalkulasi - = ${result.toString()}'));
+      } on Exception catch (e) {
+        // print(e.toString());
         emit(OnErrorHitungCalculator(e.toString()));
       }
     });

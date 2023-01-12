@@ -22,28 +22,37 @@ class SimpleCalculatorRepository {
     // validasi jika value not epmty then check chekbox
     List<CalculatorModel> thereIsNotNull = calculatorList.where((element) => element.value != null && !element.checked).toList();
     if (thereIsNotNull.isNotEmpty) {
-      print('Tidak null ${thereIsNotNull.length.toString()}');
+      // print('Tidak null ${thereIsNotNull.length.toString()}');
       throw Exception('Jangan lupa klik checkbox');
     }
 
     // penambahan
     if (event is OnPlusPressed) {
-      List<CalculatorModel> localCalculatorList = calculatorList.where((element) => element.value != null).toList();
-      result = localCalculatorList.fold<int>(0, (previousValue, element) {
+      result = 0;
+      List<CalculatorModel> localPlusCalculatorList = calculatorList.where((element) => element.value != null).toList();
+      result = localPlusCalculatorList.fold<int>(0, (previousValue, element) {
         int a = previousValue + int.parse(element.value.toString());
-        print('wewe : ${a.toString()}');
+        // print('wewe : ${a.toString()}');
         return a;
       });
     }
 
     // pengurangan
     if (event is OnMinusPressed) {
-      result = calculatorList.fold<int>(0, (previousValue, element) => previousValue - int.parse(element.value.toString()));
+      result = 0;
+      // print(result);
+      List<CalculatorModel> localMinusCalculatorList = calculatorList.where((element) => element.value != null).toList();
+      int? kurangi = localMinusCalculatorList.map((item) => item.value).reduce((value, element) => (value! - element!));
+      result = kurangi!;
+      // print(result);
     }
 
     // perkalian
     if (event is OnMultiplyPressed) {
-      result = calculatorList.fold<int>(0, (previousValue, element) => previousValue * int.parse(element.value.toString()));
+      result = 0;
+      List<CalculatorModel> localMultiCalculatorList = calculatorList.where((element) => element.value != null).toList();
+      int? kalikan = localMultiCalculatorList.map((item) => item.value).reduce((value, element) => (value! * element!));
+      result = kalikan!;
     }
 
     // validasi pembagian tidak boleh nol
@@ -52,7 +61,10 @@ class SimpleCalculatorRepository {
       if (moreThanOneChecked > 0) {
         throw Exception('Tidak boleh dibagi dengan angka 0');
       } else {
-        result = calculatorList.fold<double>(0, (previousValue, element) => previousValue / double.parse(element.value.toString()));
+        result = 0;
+        List<CalculatorModel> localDevideCalculatorList = calculatorList.where((element) => element.value != null).toList();
+        double? bagikan = localDevideCalculatorList.map((item) => double.parse(item.value.toString())).reduce((value, element) => (value / element));
+        result = bagikan;
       }
     }
 

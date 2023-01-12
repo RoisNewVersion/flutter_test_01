@@ -12,7 +12,7 @@ class OnCalculatorInitial extends HitungCalculatorEvent {
 
 class OnChangeTextField extends HitungCalculatorEvent {
   final int index;
-  final int value;
+  final int? value;
 
   OnChangeTextField(this.index, this.value);
 }

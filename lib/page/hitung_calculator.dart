@@ -53,7 +53,7 @@ class _HitungCalculatorState extends State<HitungCalculator> {
                                     int valueParsed = int.parse(val);
                                     context.read<BlocHitungCalculator>().add(OnChangeTextField(index, valueParsed));
                                   } else {
-                                    context.read<BlocHitungCalculator>().add(OnChangeTextField(index, 0));
+                                    context.read<BlocHitungCalculator>().add(OnChangeTextField(index, null));
                                   }
                                 },
                               ),
@@ -63,8 +63,7 @@ class _HitungCalculatorState extends State<HitungCalculator> {
                               child: Checkbox(
                                 value: rowData.checked,
                                 onChanged: (val) {
-                                  //
-                                  debugPrint(val.toString());
+                                  // debugPrint(val.toString());
                                   bool valueParsed = val!;
                                   context.read<BlocHitungCalculator>().add(OnChangeCheckbox(index, valueParsed));
                                 },
@@ -98,11 +97,26 @@ class _HitungCalculatorState extends State<HitungCalculator> {
                         child: const Text('+'),
                       ),
                       const SizedBox(width: 10),
-                      ElevatedButton(onPressed: () {}, child: const Text('-')),
+                      ElevatedButton(
+                        onPressed: () {
+                          context.read<BlocHitungCalculator>().add(OnMinusPressed());
+                        },
+                        child: const Text('-'),
+                      ),
                       const SizedBox(width: 10),
-                      ElevatedButton(onPressed: () {}, child: const Text('x')),
+                      ElevatedButton(
+                        onPressed: () {
+                          context.read<BlocHitungCalculator>().add(OnMultiplyPressed());
+                        },
+                        child: const Text('x'),
+                      ),
                       const SizedBox(width: 10),
-                      ElevatedButton(onPressed: () {}, child: const Text('/')),
+                      ElevatedButton(
+                        onPressed: () {
+                          context.read<BlocHitungCalculator>().add(OnDevidePressed());
+                        },
+                        child: const Text('/'),
+                      ),
                     ],
                   );
                 },
