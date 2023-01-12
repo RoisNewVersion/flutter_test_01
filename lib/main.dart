@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_testapp/page/form_page.dart';
 import 'package:flutter_testapp/page/hitung_bunga_6bulan.dart';
 import 'package:flutter_testapp/page/hitung_bunga_bulan_bebas.dart';
 import 'package:flutter_testapp/page/hitung_calculator.dart';
@@ -81,6 +82,15 @@ class MyPage extends StatelessWidget {
                   );
                 },
                 child: const Text('Go to Soal 3B'),
+              ),
+              const SizedBox(height: 10),
+              ElevatedButton(
+                onPressed: () {
+                  Navigator.of(context).push(
+                    MaterialPageRoute(builder: (context) => const FormPage()),
+                  );
+                },
+                child: const Text('Go to Soal 4'),
               ),
             ],
           ),
